@@ -1,10 +1,11 @@
-module.exports = function (){
+var app = require('express')();
 
-    console.log('carregando módulo express')
-    var app = require('express')();
+// set -> definir varíaveis pro express
+app.set('view engine','ejs');// seta ejs como engine
+app.set('views','./app/views');
 
-    // set -> definir varíaveis pro express
-    // setando ejs como engine
-    app.set('view engine','ejs');
+// como esse código não vai se carregado o tempo inteiro, podemos deixa-lo
+// fora da função e retornar apenas a variável com o mesmo objeto
+module.exports = function (){    
     return app;
 }

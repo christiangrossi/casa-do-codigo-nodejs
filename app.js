@@ -1,8 +1,6 @@
 
-var app = require('express')();
+var app = require('./config/express')();
 
-// set -> definir varíaveis pro express
-// setando ejs como engine
 app.set('view engine','ejs');
 
 // rotas

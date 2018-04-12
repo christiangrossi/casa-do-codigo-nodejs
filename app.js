@@ -1,7 +1,4 @@
-
-var rotasProdutos = require('./app/routes/produtos')(app);
-
-app.set('view engine','ejs');
+var app = require('./config/express')();
 
 app.get('/', function(req, res){
     res.send("Voce esta na home");

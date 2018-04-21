@@ -3,19 +3,19 @@ module.exports = function(app){
         var connection = app.infra.connectionFactory();
         var ProdutosDAO = new app.infra.ProdutosDAO(connection);
         ProdutosDAO.lista(function(err, results){
-            res.render('produtos/lista',{ lista:results })
+            res.format({
+                html:function(){
+                    res.render('produtos/lista',{ lista:results })
+                },
+                json: function(){
+                    res.json(results);
+                }
+            });
+
+            
         });
         connection.end();
     }
-
-    app.get('/produtos/json', function(req, res){
-        var connection = app.infra.connectionFactory();
-        var ProdutosDAO = new app.infra.ProdutosDAO(connection);
-        ProdutosDAO.lista(function(err, results){
-            res.json(results);
-        });
-        connection.end();
-    } );
 
     app.get('/produtos', listaProdutos);
 

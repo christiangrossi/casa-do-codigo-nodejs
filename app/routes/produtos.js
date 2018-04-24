@@ -3,6 +3,7 @@ module.exports = function(app){
         var connection = app.infra.connectionFactory();
         var ProdutosDAO = new app.infra.ProdutosDAO(connection);
         ProdutosDAO.lista(function(err, results){
+            console.log(err);
             res.format({
                 html:function(){
                     res.render('produtos/lista',{ lista:results })
@@ -23,14 +24,26 @@ module.exports = function(app){
         res.render('produtos/form');
     });
 
-    /*    
+        
     app.post('/produtos',function(req, res){
         var produto = req.body;
+        console.log(produto);
+
+        var validatorTitulo = req.assert('titulo', 'Titulo é obrigatório');
+        validatorTitulo.notEmpty();
+        var erros = req.validationErrors();
+
+        if(erros){
+            res.render('produtos/form');
+            return;
+        }
+
         var connection = app.infra.connectionFactory();
         var ProdutosDAO = new app.infra.ProdutosDAO(connection);
         ProdutosDAO.salvar(produto, function(err, results){
+            console.log(err);
             res.redirect('/produtos');
         });
-    });*/
+    });
 
 }

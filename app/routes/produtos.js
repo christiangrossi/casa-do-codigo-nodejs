@@ -21,7 +21,7 @@ module.exports = function(app){
     app.get('/produtos', listaProdutos);
 
     app.get('/produtos/form', function(req, res){
-        res.render('produtos/form');
+        res.render('produtos/form',{errosValidacao: {}});
     });
 
         
@@ -29,12 +29,12 @@ module.exports = function(app){
         var produto = req.body;
         console.log(produto);
 
-        var validatorTitulo = req.assert('titulo', 'Titulo é obrigatório');
-        validatorTitulo.notEmpty();
+        req.assert('titulo', 'Titulo é obrigatório').notEmpty();
+        req.assert('preco', 'Formato inválido').isFloat();
         var erros = req.validationErrors();
 
         if(erros){
-            res.render('produtos/form');
+            res.render('produtos/form',{errosValidacao:erros});
             return;
         }
 
